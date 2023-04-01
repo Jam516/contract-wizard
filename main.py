@@ -27,7 +27,13 @@ def get_abi(contract):
   response = requests.post(
     'https://api.etherscan.io/api?module=contract&action=getsourcecode&address='
     + contract + '&apikey=' + etherscan_key)
+    
   raw_abi = response.json()['result'][0]['ABI']
+
+  # Check if the API call was successful
+  if raw_abi == 'Contract source code not verified':
+    return 'source code not verified'
+    
   shortened_abi = json.loads(raw_abi)
   summaries = []
   for item in shortened_abi:
@@ -49,11 +55,16 @@ def get_abi(contract):
 
 st.cache_data
 def get_explanation(contract):
+  context = get_abi(contract)
+
+  if context == 'source code not verified':
+    return 'source code not verified'
+    
   openai.api_key = "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"
   prompt = f"""
   You are a smart contract expert. You answer user questions based on the context provided by the user above each question. If you don't know the answer you truthfully say "I don't know".
   
-  Context: {get_abi(contract)}
+  Context: {context}
   
   Question:
   This is the ABI of an Ethereum smart contract. What does this contract do? I know you don't have all the information you need, please give me your best guess.
@@ -88,5 +99,8 @@ contract_address = st.text_input(' ',
 
 explanation = get_explanation(contract_address)
 
-# Present the explanation
-st.subheader(explanation['content'])
+if explanation != 'source code not verified':
+  # Present the explanation
+  st.subheader(explanation['content'])
+else:
+  st.subheader('Source code not verified OR Contract not found')
