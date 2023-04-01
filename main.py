@@ -32,21 +32,22 @@ def get_abi(contract):
   summaries = []
   for item in shortened_abi:
     if item["type"] == "function":
-        name = item["name"]
-        inputs = [f"{i['name']}({i['type']})" for i in item["inputs"]]
-        outputs = [f"{o['name']}({o['type']})" for o in item["outputs"]]
-        summary = f"function {name}({', '.join(inputs)}) -> ({', '.join(outputs)})"
-        summaries.append(summary)
+      name = item["name"]
+      inputs = [f"{i['name']}({i['type']})" for i in item["inputs"]]
+      outputs = [f"{o['name']}({o['type']})" for o in item["outputs"]]
+      summary = f"function {name}({', '.join(inputs)}) -> ({', '.join(outputs)})"
+      summaries.append(summary)
     elif item["type"] == "event":
-        name = item["name"]
-        inputs = [f"{i['name']}({i['type']})" for i in item["inputs"]]
-        summary = f"event {name}({', '.join(inputs)})"
-        summaries.append(summary)
+      name = item["name"]
+      inputs = [f"{i['name']}({i['type']})" for i in item["inputs"]]
+      summary = f"event {name}({', '.join(inputs)})"
+      summaries.append(summary)
 
   output = "; ".join(summaries)
   return output
 
-# st.cache_data
+
+st.cache_data
 def get_explanation(contract):
   openai.api_key = "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"
   prompt = f"""
@@ -78,10 +79,12 @@ st.title('Contract Wizard 🪄')
 st.markdown("[By Kofi](https://twitter.com/0xKofi)")
 
 # Create a text input that users can enter an ENS name or wallet address
-st.subheader('Enter the address of the smart contract you want to understand 👇')
+st.subheader(
+  'Enter the address of the smart contract you want to understand 👇')
 'This only works for Ethereum contracts that are verified on Etherscan'
 
-contract_address = st.text_input(' ', '0x6B175474E89094C44Da98b954EedeAC495271d0F')
+contract_address = st.text_input(' ',
+                                 '0x6B175474E89094C44Da98b954EedeAC495271d0F')
 
 explanation = get_explanation(contract_address)
 
