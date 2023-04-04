@@ -461,6 +461,14 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 tzdata = {version = "*", markers = "python_version >= \"3.6\""}
 
 [[package]]
+name = "regex"
+version = "2023.3.23"
+description = "Alternative regular expression module, to replace re."
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[[package]]
 name = "requests"
 version = "2.28.2"
 description = "Python HTTP for Humans."
@@ -554,6 +562,21 @@ watchdog = {version = "*", markers = "platform_system != \"Darwin\""}
 
 [package.extras]
 snowflake = ["snowflake-snowpark-python"]
+
+[[package]]
+name = "tiktoken"
+version = "0.3.3"
+description = "tiktoken is a fast BPE tokeniser for use with OpenAI's models"
+category = "main"
+optional = false
+python-versions = ">=3.8"
+
+[package.dependencies]
+regex = ">=2022.1.18"
+requests = ">=2.26.0"
+
+[package.extras]
+blobfile = ["blobfile (>=2)"]
 
 [[package]]
 name = "toml"
@@ -694,7 +717,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "flake8 (<5)", "pytest-co
 [metadata]
 lock-version = "1.1"
 python-versions = "3.8"
-content-hash = "cbe1342a1768048ad9dfa4cc84a4fe1bce926443ab462b2e400cec533418e95e"
+content-hash = "b4ea32b9cdb5bd29059de01a15799fe7dd7712087d1efbab460408a5741b335a"
 
 [metadata.files]
 aiohttp = []
@@ -738,12 +761,14 @@ pyrsistent = []
 python-dateutil = []
 pytz = []
 pytz-deprecation-shim = []
+regex = []
 requests = []
 rich = []
 semver = []
 six = []
 smmap = []
 streamlit = []
+tiktoken = []
 toml = []
 toolz = []
 tornado = []
