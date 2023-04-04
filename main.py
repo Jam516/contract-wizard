@@ -134,4 +134,4 @@ with st.spinner('Analyzing contract...'):
   explanation = get_explanation(contract_address, chain_l2)
 
 # Present the explanation
-explanation
+st.subheader(explanation)
